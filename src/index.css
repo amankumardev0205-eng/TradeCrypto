@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+body {
+  @apply bg-[#020617] text-slate-100;
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+#root {
+  width: 100%;
+}
