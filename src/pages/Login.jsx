@@ -1,76 +1,80 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Lock, Eye, EyeOff, LogIn, TrendingUp } from 'lucide-react';
+import { Phone, Lock, Eye, EyeOff, LogIn } from 'lucide-react';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#020617] flex items-center justify-center p-6 relative overflow-hidden">
-      {/* Background Decorative Glows */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div className="min-h-screen bg-[#f4f3fb] text-slate-900 font-sans antialiased flex flex-col selection:bg-indigo-100">
       
-      <div className="w-full max-w-md bg-slate-900/40 backdrop-blur-2xl border border-slate-800 p-10 rounded-[40px] shadow-2xl relative z-10">
-        
-        {/* Branding */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 mb-6">
-            <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-              <TrendingUp className="text-black" size={24} />
+      {/* Brand Header */}
+      <header className="bg-[#5741d9] px-6 lg:px-16 py-4 flex items-center justify-between shadow-sm">
+        <Link to="/" className="flex items-center gap-2 font-black text-xl tracking-wide text-white">
+          <span className="text-white text-2xl font-normal">⋔</span> CRYPTO<span className="text-white/80">FLOW</span>
+        </Link>
+        <Link to="/register" className="bg-white hover:bg-slate-50 text-[#5741d9] text-sm font-bold px-5 py-2 rounded-full shadow-md transition-all">
+          Sign up
+        </Link>
+      </header>
+
+      {/* Centered Login Card Container */}
+      <div className="flex-1 flex items-center justify-center p-6">
+        <div className="bg-white border border-slate-100 rounded-3xl p-8 shadow-xl shadow-indigo-950/[0.02] w-full max-w-md space-y-6">
+          
+          <div className="flex flex-col space-y-2 text-center sm:text-left">
+            <h1 className="text-2xl font-black tracking-tight text-slate-900">
+              Welcome <span className="text-[#5741d9]">Back</span>
+            </h1>
+            <p className="text-sm text-slate-500">Secure access to your institutional trading desk.</p>
+          </div>
+
+          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            <div className="relative">
+              <Phone size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input 
+                type="tel" 
+                placeholder="Mobile Number" 
+                className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 focus:border-[#5741d9] rounded-xl text-sm focus:outline-none focus:bg-white transition-all font-medium text-slate-800" 
+              />
             </div>
-            <span className="text-2xl font-black text-white italic tracking-tighter uppercase">Crypto<span className="text-emerald-400">Flow</span></span>
-          </div>
-          <h2 className="text-3xl font-black text-white tracking-tight uppercase italic">Welcome <span className="text-emerald-400">Back</span></h2>
-          <p className="text-slate-400 mt-2 font-medium">Secure access to your trading terminal.</p>
-        </div>
 
-        <form className="space-y-6">
-          {/* Mobile Number */}
-          <div className="relative group">
-            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-emerald-400 transition-colors" size={18} />
-            <input 
-              className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-slate-800 rounded-2xl text-white placeholder:text-slate-600 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none transition-all font-medium"
-              placeholder="Mobile Number" 
-              type="tel"
-            />
-          </div>
+            <div className="relative">
+              <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input 
+                type={showPassword ? "text" : "password"} 
+                placeholder="Your Password" 
+                className="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-200 focus:border-[#5741d9] rounded-xl text-sm focus:outline-none focus:bg-white transition-all font-bold text-slate-800 tracking-wide" 
+              />
+              <button 
+                type="button" 
+                onClick={() => setShowPassword(!showPassword)} 
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+              >
+                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
+            </div>
 
-          {/* Password */}
-          <div className="relative group">
-            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-emerald-400 transition-colors" size={18} />
-            <input 
-              className="w-full pl-12 pr-12 py-4 bg-slate-950/50 border border-slate-800 rounded-2xl text-white placeholder:text-slate-600 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none transition-all font-medium"
-              placeholder="Your Password" 
-              type={showPassword ? "text" : "password"}
-            />
+            <div className="flex justify-end">
+              <span className="text-xs font-bold text-[#5741d9] hover:underline cursor-pointer">
+                Forgot Password?
+              </span>
+            </div>
+
             <button 
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-emerald-400 transition"
+              type="submit" 
+              className="w-full flex items-center justify-center gap-2 bg-[#5741d9] hover:bg-[#4833c4] text-white font-bold py-3.5 rounded-full shadow-lg shadow-indigo-600/10 transition-all transform active:scale-98 text-sm pt-3.5"
             >
-              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              <LogIn size={16} /> Secure Login
             </button>
+          </form>
+
+          <div className="pt-4 border-t border-slate-100 text-center text-xs text-slate-400">
+            New to the floor?{' '}
+            <Link to="/register" className="text-[#5741d9] font-bold hover:underline">
+              Create Free Account
+            </Link>
           </div>
-
-          {/* Forgot Password Link */}
-          <div className="flex justify-end">
-            <button type="button" className="text-xs font-bold text-emerald-400 hover:text-emerald-300 transition uppercase tracking-wider">
-              Forgot Password?
-            </button>
-          </div>
-
-          {/* Submit Button */}
-          <button className="w-full group bg-emerald-500 text-black py-4 rounded-2xl font-black text-lg hover:bg-emerald-400 transition-all shadow-[0_10px_20px_rgba(16,185,129,0.2)] flex items-center justify-center gap-3 active:scale-95">
-            <LogIn size={20} className="group-hover:translate-x-1 transition-transform" />
-            SECURE LOGIN
-          </button>
-        </form>
-
-        {/* Footer */}
-        <div className="mt-10 text-center pt-8 border-t border-slate-800/50">
-          <p className="text-slate-400 font-medium">
-            New to the floor? <Link to="/register" className="text-emerald-400 font-bold hover:text-emerald-300 transition underline underline-offset-4 decoration-emerald-500/30">Create Free Account</Link>
-          </p>
         </div>
       </div>
     </div>

@@ -1,90 +1,99 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { User, Phone, Lock, Eye, EyeOff, ShieldCheck } from 'lucide-react';
+import { Shield, User, Phone, Lock, Eye, EyeOff } from 'lucide-react';
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#020617] flex items-center justify-center p-6 relative overflow-hidden">
-      {/* Decorative Background Glows */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div className="min-h-screen bg-[#f4f3fb] text-slate-900 font-sans antialiased flex flex-col selection:bg-indigo-100">
+      
+      {/* Brand Header */}
+      <header className="bg-[#5741d9] px-6 lg:px-16 py-4 flex items-center justify-between shadow-sm">
+        <Link to="/" className="flex items-center gap-2 font-black text-xl tracking-wide text-white">
+          <span className="text-white text-2xl font-normal">⋔</span> CRYPTO<span className="text-white/80">FLOW</span>
+        </Link>
+        <Link to="/login" className="text-sm font-semibold text-white border border-white/40 hover:border-white px-4 py-2 rounded-full transition-colors">
+          Sign in
+        </Link>
+      </header>
 
-      <div className="w-full max-w-lg bg-slate-900/40 backdrop-blur-xl border border-slate-800 p-10 rounded-[40px] shadow-2xl relative z-10">
-        
-        {/* Header */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl mb-4">
-            <ShieldCheck className="text-emerald-400" size={32} />
+      {/* Centered Register Card Container */}
+      <div className="flex-1 flex items-center justify-center p-6">
+        <div className="bg-white border border-slate-100 rounded-3xl p-8 shadow-xl shadow-indigo-950/[0.02] w-full max-w-md space-y-6">
+          
+          <div className="flex flex-col space-y-2 text-center sm:text-left">
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 text-[#5741d9] flex items-center justify-center mb-1 mx-auto sm:mx-0">
+              <Shield size={20} />
+            </div>
+            <h1 className="text-2xl font-black tracking-tight text-slate-900">
+              Create <span className="text-[#5741d9]">Account</span>
+            </h1>
+            <p className="text-sm text-slate-500">Join our network of premium digital liquidity traders.</p>
           </div>
-          <h2 className="text-3xl font-black text-white tracking-tight uppercase italic">Create <span className="text-emerald-400">Account</span></h2>
-          <p className="text-slate-400 mt-2 font-medium">Join the elite network of digital traders.</p>
-        </div>
 
-        <form className="space-y-6">
-          {/* Name Row */}
-          <div className="flex gap-4">
-            <div className="flex-1 relative">
-              <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="relative">
+                <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                <input 
+                  type="text" 
+                  placeholder="First Name" 
+                  className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 focus:border-[#5741d9] rounded-xl text-sm focus:outline-none focus:bg-white transition-all font-medium text-slate-800" 
+                />
+              </div>
+              <div className="relative">
+                <input 
+                  type="text" 
+                  placeholder="Last Name" 
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 focus:border-[#5741d9] rounded-xl text-sm focus:outline-none focus:bg-white transition-all font-medium text-slate-800" 
+                />
+              </div>
+            </div>
+
+            <div className="relative">
+              <Phone size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
               <input 
-                className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-slate-800 rounded-2xl text-white placeholder:text-slate-600 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none transition-all font-medium"
-                placeholder="First Name" 
-                type="text"
+                type="tel" 
+                placeholder="Mobile Number" 
+                className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 focus:border-[#5741d9] rounded-xl text-sm focus:outline-none focus:bg-white transition-all font-medium text-slate-800" 
               />
             </div>
-            <div className="flex-1 relative">
+
+            <div className="relative">
+              <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
               <input 
-                className="w-full px-6 py-4 bg-slate-950/50 border border-slate-800 rounded-2xl text-white placeholder:text-slate-600 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none transition-all font-medium"
-                placeholder="Last Name" 
-                type="text"
+                type={showPassword ? "text" : "password"} 
+                placeholder="Create Password" 
+                className="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-200 focus:border-[#5741d9] rounded-xl text-sm focus:outline-none focus:bg-white transition-all font-bold text-slate-800 tracking-wide" 
               />
+              <button 
+                type="button" 
+                onClick={() => setShowPassword(!showPassword)} 
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+              >
+                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
             </div>
-          </div>
 
-          {/* Mobile Number */}
-          <div className="relative">
-            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-            <input 
-              className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-slate-800 rounded-2xl text-white placeholder:text-slate-600 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none transition-all font-medium"
-              placeholder="Mobile Number" 
-              type="tel"
-            />
-          </div>
+            <p className="text-[11px] leading-relaxed text-slate-400 text-center px-2">
+              By checking Open Account, you agree to our <span className="text-[#5741d9] hover:underline cursor-pointer font-bold">Terms of Service</span> and <span className="text-[#5741d9] hover:underline cursor-pointer font-bold">Privacy Policy</span>.
+            </p>
 
-          {/* Password */}
-          <div className="relative">
-            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-            <input 
-              className="w-full pl-12 pr-12 py-4 bg-slate-950/50 border border-slate-800 rounded-2xl text-white placeholder:text-slate-600 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none transition-all font-medium"
-              placeholder="Create Password" 
-              type={showPassword ? "text" : "password"}
-            />
             <button 
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-emerald-400 transition"
+              type="submit" 
+              className="w-full bg-[#5741d9] hover:bg-[#4833c4] text-white font-bold py-3.5 rounded-full shadow-lg shadow-indigo-600/10 transition-all transform active:scale-98 text-sm mt-2"
             >
-              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              Open Account
             </button>
+          </form>
+
+          <div className="pt-4 border-t border-slate-100 text-center text-xs text-slate-400">
+            Already have an account?{' '}
+            <Link to="/login" className="text-[#5741d9] font-bold hover:underline">
+              Log In
+            </Link>
           </div>
-
-          {/* Terms */}
-          <p className="text-xs text-slate-500 text-center px-4 leading-relaxed">
-            By clicking Sign Up, you agree to our <span className="text-emerald-400 hover:underline cursor-pointer">Terms of Service</span> and <span className="text-emerald-400 hover:underline cursor-pointer">Privacy Policy</span>.
-          </p>
-
-          {/* Submit Button */}
-          <button className="w-full bg-emerald-500 text-black py-4 rounded-2xl font-black text-lg hover:bg-emerald-400 transition-all shadow-[0_10px_20px_rgba(16,185,129,0.2)] active:scale-[0.98]">
-            OPEN ACCOUNT
-          </button>
-        </form>
-
-        {/* Footer */}
-        <div className="mt-8 text-center pt-6 border-t border-slate-800/50">
-          <p className="text-slate-400 font-medium">
-            Already have an account? <Link to="/login" className="text-emerald-400 font-bold hover:text-emerald-300 transition">Log In</Link>
-          </p>
         </div>
       </div>
     </div>

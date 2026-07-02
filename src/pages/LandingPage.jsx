@@ -1,101 +1,168 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShieldCheck, Zap, Globe, ArrowRight, TrendingUp, BarChart3 } from 'lucide-react';
+import { ArrowUpRight, ArrowDownRight, Shield, Zap, Globe, BookOpen, Clock, ArrowRight, TrendingUp } from 'lucide-react';
 
 export default function LandingPage() {
+  const marketData = [
+    { name: 'Bitcoin', symbol: 'BTC', price: '$68,420.50', change: '+2.3%', up: true, color: 'bg-indigo-500' },
+    { name: 'Ethereum', symbol: 'ETH', price: '$3,520.18', change: '+1.8%', up: true, color: 'bg-purple-500' },
+    { name: 'Tether', symbol: 'USDT', price: '$1.00', change: '-0.01%', up: false, color: 'bg-slate-400' },
+  ];
+
+  const blogPosts = [
+    {
+      title: 'Understanding Liquidity: Why Millisecond Settlement Matters',
+      excerpt: 'Deep dive into institutional-grade slippage mitigation and how fast settlement protects capital.',
+      category: 'Trading Guides',
+      readTime: '4 min read',
+      date: 'July 2, 2026',
+      image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=600&q=80'
+    },
+    {
+      title: 'Ethereum Q3 Market Outlook and Volatility Forecast',
+      excerpt: 'An analytical breakdown of macro liquidity pools, staking derivatives, and key support levels.',
+      category: 'Market Analysis',
+      readTime: '6 min read',
+      date: 'June 30, 2026',
+      image: 'https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=600&q=80'
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-100 font-sans selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-[#f4f3fb] text-slate-900 font-sans antialiased selection:bg-indigo-100">
       
-      {/* 1. NEON GLASS NAVBAR */}
-      <nav className="fixed top-0 w-full z-50 bg-[#020617]/80 backdrop-blur-xl border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.4)]">
-              <TrendingUp className="text-black" size={24} />
-            </div>
-            <span className="text-2xl font-black tracking-tighter text-white uppercase italic">Crypto<span className="text-emerald-400">Flow</span></span>
-          </div>
-          <div className="hidden md:flex items-center gap-10 text-sm font-bold uppercase tracking-widest text-slate-400">
-            <a href="#market" className="hover:text-emerald-400 transition">Market</a>
-            <a href="#security" className="hover:text-emerald-400 transition">Vault</a>
-          </div>
-          <div className="flex items-center gap-6">
-            <Link to="/login" className="text-sm font-bold text-slate-400 hover:text-white transition">LOGIN</Link>
-            <Link to="/register" className="bg-emerald-500 text-black px-6 py-3 rounded-lg text-sm font-black hover:bg-emerald-400 transition-all shadow-[0_0_15px_rgba(16,185,129,0.3)]">
-              OPEN ACCOUNT
-            </Link>
-          </div>
+      {/* 1. Header Inspired by Kraken-1.png.webp Color Theme */}
+      <header className="bg-[#5741d9] sticky top-0 z-50 px-6 lg:px-16 py-4 flex items-center justify-between shadow-sm">
+        <div className="flex items-center gap-2 font-black text-xl tracking-wide text-white">
+          <span className="text-white text-2xl font-normal">⋔</span> CRYPTO<span className="text-white/80">FLOW</span>
         </div>
-      </nav>
+        <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-white/90">
+          <a href="#market" className="hover:text-white transition-colors">Explore</a>
+          <a href="#vault" className="hover:text-white transition-colors">Prices</a>
+          <a href="#insights" className="hover:text-white transition-colors">Learn</a>
+          <a href="#support" className="hover:text-white transition-colors">Support</a>
+        </nav>
+        <div className="flex items-center gap-4">
+          <Link to="/login" className="text-sm font-semibold text-white border border-white/40 hover:border-white px-4 py-2 rounded-full transition-colors">
+            Sign in
+          </Link>
+          <Link to="/register" className="bg-white hover:bg-slate-50 text-[#5741d9] text-sm font-bold px-5 py-2 rounded-full shadow-md transition-all transform active:scale-95">
+            Sign up
+          </Link>
+        </div>
+      </header>
 
-      {/* 2. PRO TRADING HERO */}
-      <main className="relative pt-44 pb-32 px-6 overflow-hidden">
-        {/* Background Glows */}
-        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none"></div>
-        <div className="absolute bottom-0 -right-20 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
-
-        <div className="max-w-6xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-2 bg-slate-900 text-emerald-400 px-4 py-1.5 rounded-full text-xs font-black mb-10 border border-emerald-500/20 tracking-widest uppercase">
-            <BarChart3 size={14} /> Live Market Execution Enabled
-          </div>
-
-          <h1 className="text-6xl md:text-8xl font-black text-white mb-8 leading-[0.9] tracking-tighter uppercase italic">
-            Liquidate Your <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
-              Digital Assets
-            </span>
-          </h1>
+      {/* 2. Main Section */}
+      <main className="max-w-7xl mx-auto px-6 lg:px-16 pt-16 md:pt-24 pb-20">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          <p className="text-slate-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed font-medium">
-            Professional-grade liquidation for USDT and Ethereum. 
-            Direct bank settlements with millisecond execution speeds.
-          </p>
+          {/* Left Text Block */}
+          <div className="lg:col-span-7 space-y-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.05]">
+              Buy bitcoin <br />
+              & digital assets
+            </h1>
+            <p className="text-base sm:text-lg text-slate-600 max-w-md font-normal leading-relaxed">
+              Sign up today to easily liquidate or acquire <strong>200+ cryptocurrencies</strong>. Get started in minutes with as little as <strong>$10</strong>.
+            </p>
+            <div className="pt-2 flex flex-col sm:flex-row gap-4">
+              <Link to="/register" className="inline-flex items-center justify-center gap-2 bg-[#5741d9] hover:bg-[#4833c4] text-white font-bold px-8 py-4 rounded-full transition-all shadow-lg shadow-indigo-600/10 text-center">
+                Buy crypto with $10
+              </Link>
+              <Link to="/terminal" className="inline-flex items-center justify-center bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold px-8 py-4 rounded-full transition-all text-center shadow-sm">
+                View Terminal
+              </Link>
+            </div>
+          </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <Link to="/register" className="group w-full sm:w-auto bg-emerald-500 text-black px-10 py-5 rounded-xl font-black text-lg hover:bg-emerald-400 transition-all flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(16,185,129,0.2)]">
-              SELL NOW
-              <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link to="/dashboard" className="w-full sm:w-auto bg-slate-900 text-white px-10 py-5 rounded-xl font-black text-lg border border-slate-700 hover:bg-slate-800 transition-all flex items-center justify-center gap-3">
-              VIEW TERMINAL
-            </Link>
+          {/* Right Interface Block */}
+          <div className="lg:col-span-5">
+            <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-xl shadow-indigo-950/[0.03]">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="font-bold text-slate-900 text-base flex items-center gap-2">
+                  <TrendingUp size={16} className="text-[#5741d9]"/> Market Overview
+                </h3>
+                <span className="text-slate-400 font-bold cursor-pointer hover:text-slate-600">•••</span>
+              </div>
+              
+              <div className="space-y-3">
+                {marketData.map((coin, idx) => (
+                  <div key={idx} className="flex items-center justify-between p-3 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-9 h-9 rounded-xl ${coin.color} bg-opacity-10 flex items-center justify-center font-black text-xs text-slate-700`}>
+                        {coin.symbol[0]}
+                      </div>
+                      <div>
+                        <h4 className="font-extrabold text-slate-900 text-sm leading-tight">{coin.name}</h4>
+                        <span className="text-xs text-slate-400 uppercase tracking-wider font-bold">{coin.symbol}</span>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-bold text-slate-900 text-sm">{coin.price}</p>
+                      <span className={`inline-flex items-center gap-0.5 text-xs font-bold ${coin.up ? 'text-emerald-600' : 'text-rose-600'}`}>
+                        {coin.up ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}{coin.change}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
+
+        {/* 3. Value Props Panel */}
+        <section id="market" className="grid sm:grid-cols-3 gap-6 mt-28">
+          <div className="bg-white border border-slate-100 p-6 rounded-3xl shadow-sm">
+            <div className="w-10 h-10 rounded-2xl bg-indigo-50 text-[#5741d9] flex items-center justify-center mb-4"><Shield size={20} /></div>
+            <h3 className="font-extrabold text-slate-900 mb-1.5 text-base">Encrypted KYC</h3>
+            <p className="text-slate-500 text-sm leading-relaxed">Military-grade protection standards verifying parameters 24/7 without delays.</p>
+          </div>
+          <div className="bg-white border border-slate-100 p-6 rounded-3xl shadow-sm">
+            <div className="w-10 h-10 rounded-2xl bg-indigo-50 text-[#5741d9] flex items-center justify-center mb-4"><Zap size={20} /></div>
+            <h3 className="font-extrabold text-slate-900 mb-1.5 text-base">Instant Fiat</h3>
+            <p className="text-slate-500 text-sm leading-relaxed">Automated settlement protocols pushing real money orders instantly into accounts.</p>
+          </div>
+          <div className="bg-white border border-slate-100 p-6 rounded-3xl shadow-sm">
+            <div className="w-10 h-10 rounded-2xl bg-indigo-50 text-[#5741d9] flex items-center justify-center mb-4"><Globe size={20} /></div>
+            <h3 className="font-extrabold text-slate-900 mb-1.5 text-base">Global Liquidity</h3>
+            <p className="text-slate-500 text-sm leading-relaxed">Deep dynamic trading pools matching institutional spreads natively globally.</p>
+          </div>
+        </section>
+
+        {/* 4. Minimalist Modern Blog Integration */}
+        <section id="insights" className="mt-32 pt-12 border-t border-slate-200">
+          <div className="grid lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-4 space-y-3">
+              <div className="flex items-center gap-2 text-[#5741d9] text-xs font-bold tracking-widest uppercase">
+                <BookOpen size={14} /> Learn Hub
+              </div>
+              <h2 className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">Stay ahead of the crypto flow.</h2>
+              <p className="text-slate-500 text-sm max-w-sm leading-relaxed">Clear guides and straightforward asset management analyses without the confusing jargon.</p>
+            </div>
+            <div className="lg:col-span-8 grid sm:grid-cols-2 gap-6">
+              {blogPosts.map((post, index) => (
+                <article key={index} className="group cursor-pointer bg-white border border-slate-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col">
+                  <div className="h-44 w-full overflow-hidden bg-slate-100 relative">
+                    <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500" />
+                    <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-slate-900 text-[11px] font-extrabold px-3 py-1 rounded-full shadow-sm">{post.category}</span>
+                  </div>
+                  <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                    <div>
+                      <h3 className="font-extrabold text-slate-900 text-base group-hover:text-[#5741d9] transition-colors line-clamp-2">{post.title}</h3>
+                      <p className="text-slate-500 text-xs mt-2 line-clamp-2 leading-relaxed">{post.excerpt}</p>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] font-bold text-slate-400 pt-2 border-t border-slate-100">
+                      <span className="flex items-center gap-1"><Clock size={12} /> {post.readTime}</span>
+                      <span>{post.date}</span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
       </main>
-
-      {/* 3. TRADING STATS / FEATURES */}
-      <section className="max-w-7xl mx-auto px-6 py-24 border-t border-slate-900">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <StatCard 
-            icon={<ShieldCheck className="text-emerald-400" size={32} />}
-            title="Encrypted KYC"
-            desc="Military-grade video verification ensures your account is protected 24/7."
-          />
-          <StatCard 
-            icon={<Zap className="text-emerald-400" size={32} />}
-            title="Instant Fiat"
-            desc="Automated settlement system pushes funds to your bank the moment the trade clears."
-          />
-          <StatCard 
-            icon={<Globe className="text-emerald-400" size={32} />}
-            title="Global Liquidity"
-            desc="Access deep pools for USDT and ETH to ensure the best market rates for every sale."
-          />
-        </div>
-      </section>
-    </div>
-  );
-}
-
-function StatCard({ icon, title, desc }) {
-  return (
-    <div className="p-10 bg-slate-900/50 rounded-3xl border border-slate-800 hover:border-emerald-500/50 transition-all duration-500 group">
-      <div className="mb-8 p-4 bg-slate-950 w-fit rounded-2xl border border-slate-800 group-hover:shadow-[0_0_20px_rgba(16,185,129,0.2)] transition-all">
-        {icon}
-      </div>
-      <h3 className="text-2xl font-black text-white mb-4 uppercase italic">{title}</h3>
-      <p className="text-slate-400 leading-relaxed font-medium">
-        {desc}
-      </p>
     </div>
   );
 }
