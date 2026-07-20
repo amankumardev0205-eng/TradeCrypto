@@ -9,8 +9,8 @@
 - ✅ Admin Dashboard Completed
 - ✅ KYC Upload System Completed
 - ✅ Firebase Hosting Configured
+- ✅ Live Crypto API Integration Completed
 - 🚧 Backend Improvements In Progress
-- 📝 Live Crypto API Integration Pending
 
 ---
 
@@ -86,46 +86,46 @@
 ## Admin Module
 
 - ✅ View KYC Requests
-- 🚧 Approve/Reject KYC
+- ✅ Approve/Reject KYC
 - 📝 User Management
 
 ---
 
-# Phase 3: Cryptocurrency Features
+# Phase 3: Cryptocurrency Features ✅ COMPLETED
 
 ## Crypto Market
 
-- 📝 Integrate CoinGecko API
-- 📝 Display Live Prices
-- 📝 Trending Coins
-- 📝 Search Cryptocurrency
+- ✅ Integrate CoinGecko API
+- ✅ Display Live Prices
+- ✅ Trending Coins (Integrated into Market Page)
+- ✅ Search Cryptocurrency
 
 ---
 
-## Portfolio
+## Portfolio ✅ COMPLETED
 
-- 📝 Portfolio Page
-- 📝 Track Holdings
-- 📝 Profit/Loss Calculator
-
----
-
-## Watchlist
-
-- 📝 Add Favorite Coins
-- 📝 Remove Favorite Coins
-- 📝 Save to Firestore
+- ✅ Portfolio Page
+- ✅ Track Holdings
+- ✅ Profit/Loss Calculator
 
 ---
 
-# Phase 4: Security
+- ## Watchlist ✅ COMPLETED
+
+- ✅ Add Favorite Coins
+- ✅ Remove Favorite Coins
+- ✅ Save to Firestore
+
+---
+
+# Phase 4: Security ✅ COMPLETED
 
 - ✅ Password Encryption
 - ✅ JWT Authentication
 - ✅ Environment Variables
-- 🚧 Input Validation
-- 📝 Rate Limiting
-- 📝 Helmet Security
+- ✅ Input Validation
+- ✅ Rate Limiting
+- ✅ Helmet Security
 
 ---
 
@@ -133,15 +133,15 @@
 
 - ✅ Frontend Hosted on Firebase
 - ✅ GitHub Repository
-- 📝 Deploy Backend
-- 📝 Configure Production Environment
+- ✅ Deploy Backend
+- ✅ Configure Production Environment
 
 ---
 
 # Future Enhancements
 
 - 📝 Dark Mode
-- 📝 Email Verification
+- ✅ Email Verification
 - 📝 Two-Factor Authentication
 - 📝 Crypto Wallet Integration
 - 📝 Buy/Sell Cryptocurrency
@@ -154,9 +154,9 @@
 
 # Known Issues
 
-- Backend deployment pending
-- Live cryptocurrency API not integrated yet
-- KYC approval workflow needs completion
+- ✅ **KYC Approval Workflow:** The backend logic for admins to approve or reject KYC submissions needs to be completed.
+- 🚧 **Refresh Token Support:** The authentication system does not yet support refresh tokens for persistent sessions.
+- 🚧 **Update User Profile:** The backend endpoint for users to update their profile information is not yet complete.
 
 ---
 
@@ -183,7 +183,7 @@ Crypto/
 | Admin Dashboard | ✅ Completed |
 | KYC Module | ✅ Completed |
 | Firebase Hosting | ✅ Completed |
-| Live Crypto Data | 🚧 In Progress |
-| Portfolio | 📝 Planned |
+| Live Crypto Data | ✅ Completed |
+| Portfolio | ✅ Completed |
 | Trading Features | 📝 Planned |
 | Backend Deployment | 📝 Planned |
