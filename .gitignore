@@ -7,10 +7,18 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+
+# Build output
 dist
 dist-ssr
+
+# Local environment files
 *.local
+
+# Firebase service account (private key – never commit)
+serviceAccountKey.json
 
 # Editor directories and files
 .vscode/*
