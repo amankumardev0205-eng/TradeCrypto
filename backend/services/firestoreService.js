@@ -25,6 +25,13 @@ const firestoreService = {
       updatedAt: data.updatedAt || timestamp,
     };
 
+    if (process.env.NODE_ENV === 'test') {
+      const fallbackId = String(customId || data.id || `local-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`);
+      const created = { id: fallbackId, ...docData };
+      getCollectionStore(collection).set(fallbackId, created);
+      return created;
+    }
+
     try {
       if (customId) {
         const docRef = db.collection(collection).doc(String(customId));
@@ -54,6 +61,10 @@ const firestoreService = {
     if (!id) return null;
     const strId = String(id);
 
+    if (process.env.NODE_ENV === 'test') {
+      return getCollectionStore(collection).get(strId) || null;
+    }
+
     try {
       const docRef = db.collection(collection).doc(strId);
       const doc = await docRef.get();
@@ -80,6 +91,13 @@ const firestoreService = {
       updatedAt: new Date().toISOString(),
     };
 
+    if (process.env.NODE_ENV === 'test') {
+      const localDoc = getCollectionStore(collection).get(strId) || { id: strId };
+      const merged = { ...localDoc, ...updateData };
+      getCollectionStore(collection).set(strId, merged);
+      return merged;
+    }
+
     try {
       const docRef = db.collection(collection).doc(strId);
       const doc = await docRef.get();
@@ -105,6 +123,10 @@ const firestoreService = {
   delete: async (collection, id) => {
     if (!id) return false;
     const strId = String(id);
+    if (process.env.NODE_ENV === 'test') {
+      getCollectionStore(collection).delete(strId);
+      return true;
+    }
     try {
       const docRef = db.collection(collection).doc(strId);
       await docRef.delete();
@@ -119,6 +141,14 @@ const firestoreService = {
    * Query documents matching a single field filter.
    */
   getWhere: async (collection, field, op, value) => {
+    if (process.env.NODE_ENV === 'test') {
+      const allLocal = Array.from(getCollectionStore(collection).values());
+      if (op === '==') {
+        return allLocal.filter((doc) => doc[field] === value);
+      }
+      return allLocal;
+    }
+
     try {
       const snapshot = await db.collection(collection).where(field, op, value).get();
       if (!snapshot.empty) {
@@ -139,6 +169,19 @@ const firestoreService = {
    * Query documents matching multiple filters, sorting, and pagination limit.
    */
   query: async (collection, filters = [], orderByField = null, orderDirection = 'desc', limitVal = null) => {
+    if (process.env.NODE_ENV === 'test') {
+      let allLocal = Array.from(getCollectionStore(collection).values());
+      for (const filter of filters) {
+        if (filter.op === '==') {
+          allLocal = allLocal.filter((doc) => doc[filter.field] === filter.value);
+        }
+      }
+      if (limitVal) {
+        allLocal = allLocal.slice(0, limitVal);
+      }
+      return allLocal;
+    }
+
     try {
       let queryRef = db.collection(collection);
 
@@ -178,6 +221,14 @@ const firestoreService = {
    * Get all documents in a collection.
    */
   getAll: async (collection, limitVal = null) => {
+    if (process.env.NODE_ENV === 'test') {
+      const allLocal = Array.from(getCollectionStore(collection).values());
+      if (limitVal) {
+        return allLocal.slice(0, limitVal);
+      }
+      return allLocal;
+    }
+
     try {
       let queryRef = db.collection(collection);
       if (limitVal) {

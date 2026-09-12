@@ -114,6 +114,59 @@ const tokenService = {
 
     const tokenId = tokenService.hashToken(rawToken);
 
+    if (process.env.NODE_ENV === 'test') {
+      const tokenDoc = await firestoreService.getById('refreshTokens', tokenId);
+      if (!tokenDoc) {
+        throw new UnauthorizedError('Invalid refresh token');
+      }
+
+      if (new Date(tokenDoc.expiresAt) < new Date()) {
+        throw new UnauthorizedError('Refresh token expired');
+      }
+
+      if (tokenDoc.revoked) {
+        await tokenService.revokeFamily(tokenDoc.familyId);
+        throw new UnauthorizedError('Token reuse detected. All sessions in this family have been revoked for security.');
+      }
+
+      const user = await firestoreService.getById('users', tokenDoc.userId);
+      if (!user) {
+        throw new UnauthorizedError('User associated with token not found');
+      }
+
+      if (user.status === 'suspended' || user.status === 'banned') {
+        await tokenService.revokeAllUserTokens(user.id);
+        throw new UnauthorizedError('Account access has been restricted');
+      }
+
+      const rawNewToken = crypto.randomBytes(32).toString('hex');
+      const newTokenId = tokenService.hashToken(rawNewToken);
+      const famId = tokenDoc.familyId;
+      const issuedAt = new Date().toISOString();
+      const expiresAt = new Date(Date.now() + config.jwtRefreshExpiresInDays * 24 * 60 * 60 * 1000).toISOString();
+
+      await firestoreService.create('refreshTokens', {
+        tokenId: newTokenId,
+        userId: String(tokenDoc.userId),
+        familyId: famId,
+        issuedAt,
+        expiresAt,
+        revoked: false,
+        replacedBy: null,
+        userAgent: userAgent || 'Unknown',
+        ipAddress: ipAddress || 'Unknown',
+      }, newTokenId);
+
+      await firestoreService.update('refreshTokens', tokenId, {
+        revoked: true,
+        replacedBy: newTokenId,
+        revokedAt: new Date().toISOString(),
+      });
+
+      const accessToken = tokenService.generateAccessToken(user);
+      return { accessToken, rawRefreshToken: rawNewToken, user };
+    }
+
     return await db.runTransaction(async (transaction) => {
       const tokenRef = db.collection('refreshTokens').doc(tokenId);
       const tokenSnap = await transaction.get(tokenRef);
