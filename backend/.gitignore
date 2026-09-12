@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Environment and Secrets
+.env
+serviceAccountKey.json
+*.pem
+
+# Uploads
+uploads/
+
+# Logs
+*.log

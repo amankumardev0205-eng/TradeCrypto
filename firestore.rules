@@ -1,0 +1,66 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Default Deny-All: Deny direct client read/write for all documents at the top level
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 1. Users Collection
+    // Defense-in-depth: Deny direct client read/write. User profile access must go through
+    // the backend Express API to strip password hashes and enforce business authorization.
+    match /users/{userId} {
+      allow read, write: if false;
+    }
+
+    // 2. Wallets Collection
+    // Defense-in-depth: Deny direct client read/write. Financial balance adjustments must only occur
+    // through the backend's validated transaction engine to prevent client-side balance manipulation.
+    match /wallets/{walletId} {
+      allow read, write: if false;
+    }
+
+    // 3. Orders Collection
+    // Defense-in-depth: Deny direct client read/write. Order creation, matching, and cancellations
+    // must be validated by the backend server to enforce fund locking and financial integrity.
+    match /orders/{orderId} {
+      allow read, write: if false;
+    }
+
+    // 4. Trades Collection
+    // Defense-in-depth: Deny direct client read/write. Trade records are immutable financial logs
+    // generated exclusively by the backend order matching engine.
+    match /trades/{tradeId} {
+      allow read, write: if false;
+    }
+
+    // 5. Transactions Collection
+    // Defense-in-depth: Deny direct client read/write. Financial transaction history records
+    // are immutable and created solely by backend financial operations.
+    match /transactions/{transactionId} {
+      allow read, write: if false;
+    }
+
+    // 6. KYC Audits Collection
+    // Defense-in-depth: Deny direct client read/write. KYC submissions contain sensitive PII
+    // and must only be accessed via authenticated backend routes with proper role/ownership checks.
+    match /kyc_audits/{auditId} {
+      allow read, write: if false;
+    }
+
+    // 7. Refresh Tokens Collection
+    // Defense-in-depth: Deny direct client read/write. Session refresh tokens are sensitive security
+    // credentials managed strictly by the backend server via Firebase Admin SDK.
+    match /refreshTokens/{tokenId} {
+      allow read, write: if false;
+    }
+
+    // 8. Password Resets Collection
+    // Defense-in-depth: Deny direct client read/write. Password reset tokens are secure authentication
+    // secrets that must never be readable or writable by any client SDK.
+    match /password_resets/{resetId} {
+      allow read, write: if false;
+    }
+  }
+}

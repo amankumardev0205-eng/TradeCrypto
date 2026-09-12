@@ -1,0 +1,26 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Default Deny-All: Deny direct client read and write operations across all bucket paths
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // 1. KYC Documents & Verification Videos
+    // Defense-in-depth: Deny direct client read/write. KYC uploads are processed by the Express backend
+    // server (via Multer/Admin SDK). Files contain sensitive PII and must never be exposed via public
+    // or unauthenticated direct Firebase Storage URLs. Access must be proxied through authenticated
+    // backend endpoints with ownership and role verification.
+    match /kyc-documents/{userId}/{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // 2. User Profile Avatars / Media Assets
+    // Defense-in-depth: Deny direct client write. User media assets are validated and processed
+    // exclusively by the backend server.
+    match /avatars/{userId}/{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

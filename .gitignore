@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Environment and Secrets
+.env
+.env.local
+.env.production
+serviceAccountKey.json
+*.pem
+
+# Log files
+*.log
+npm-debug.log*
+
+# Uploads and temporary files
+uploads/
+dist/
+.DS_Store
+
+# Test coverage
+**/coverage/
